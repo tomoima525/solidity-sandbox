@@ -4,9 +4,10 @@ pragma solidity ^0.8.0;
 import "hardhat/console.sol";
 import "@openzeppelin/contracts-upgradeable/token/ERC721/ERC721Upgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
+import "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol";
 
-
-contract Pown is Initializable, ERC721Upgradeable {
+contract Pown is Initializable, ERC721Upgradeable, AccessControlUpgradeable {
+    bytes32 public constant MINT_ROLE = keccak256("MINT_ROLE");
 
     string private _baseURIForPown;
     // Last Used id (used to generate new ids)
@@ -33,19 +34,30 @@ contract Pown is Initializable, ERC721Upgradeable {
     function mintToken(uint256 bountyId, address to)
     public returns (bool)
     {
-        // TODO: Add AccessControl
+        require(hasRole(MINT_ROLE, msg.sender), "Not authorized to mint");
         lastId += 1;
         return _mintToken(bountyId, lastId, to);
     }
 
+    /**
+    * @dev Function to set baseURI
+    * @param baseURI baseURI e.g. "https://foo.com/pown/"
+    */
+    function setBaseURI(string memory baseURI) public {
+        require(hasRole(DEFAULT_ADMIN_ROLE, msg.sender), "Not authorized to change baseURI");
+        _baseURIForPown = baseURI;
+    }
+
     function initialize(string memory _name, string memory _symbol, string memory __baseURI) public initializer {
         __ERC721_init(_name, _symbol);
+        __AccessControl_init();
+        _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
+        _grantRole(MINT_ROLE, msg.sender);
         _baseURIForPown = __baseURI;
+    }
 
-        // TODO: Add Admin using AccessControl
-        //for (uint256 i = 0; i < admins.length; ++i) {
-            //_addAdmin(admins[i]);
-        //}
+    function supportsInterface(bytes4 interfaceId) public view virtual override(ERC721Upgradeable, AccessControlUpgradeable) returns (bool) {
+        return super.supportsInterface(interfaceId);
     }
 
     /**
