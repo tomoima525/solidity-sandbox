@@ -1,6 +1,6 @@
 # Minting NFT Contract
 
-This project demonstrates minting NFT using ERC721 with AccessControl, with use of Upgradable
+This project demonstrates minting NFT(ERC721) with AccessControl and Upgradeable Contract.
 
 # Running
 
