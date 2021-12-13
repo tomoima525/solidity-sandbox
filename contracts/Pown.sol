@@ -7,6 +7,8 @@ import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol";
 
 contract Pown is Initializable, ERC721Upgradeable, AccessControlUpgradeable {
+    event MintPown(uint256 bountyId, uint256 tokenId);
+
     bytes32 public constant MINT_ROLE = keccak256("MINT_ROLE");
 
     string private _baseURIForPown;
@@ -71,7 +73,7 @@ contract Pown is Initializable, ERC721Upgradeable, AccessControlUpgradeable {
         // TODO Verify that the token receiver ('to') do not have already a token for the event ('bountyId')
         _mint(to, tokenId);
         _bounty[tokenId] = bountyId;
-        
+        emit MintPown(bountyId, tokenId);
         return true;
     }
 
