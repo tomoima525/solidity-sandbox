@@ -37,4 +37,6 @@ jobs:
       - name: build contract
         run: |
           npx hardhat compile
-      - run: ls artifacts
+      - name: test contract
+        run: |
+          yarn contract:test
