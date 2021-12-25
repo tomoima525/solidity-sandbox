@@ -80,6 +80,7 @@ contract Pown is Initializable, ERC721Upgradeable, AccessControlUpgradeable {
     /**
      * @dev Function to convert uint to string
      * Taken from https://github.com/oraclize/ethereum-api/blob/master/oraclizeAPI_0.5.sol
+     * and https://stackoverflow.com/questions/47129173/how-to-convert-uint-to-string-in-solidity
      */
     function _uint2str(uint _i) internal pure returns (string memory _uintAsString) {
         if (_i == 0) {
