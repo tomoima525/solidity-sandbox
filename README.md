@@ -40,3 +40,8 @@ Then, copy the deployment address and paste it in to replace `DEPLOYED_CONTRACT_
 ```shell
 npx hardhat verify --network ropsten DEPLOYED_CONTRACT_ADDRESS "Hello, Hardhat!"
 ```
+
+# Contract Upgrade using Gnosis + Hardhat + Openzeppelin
+
+- Based on https://forum.openzeppelin.com/t/openzeppelin-upgrades-step-by-step-tutorial-for-hardhat/3580 and https://docs.openzeppelin.com/learn/upgrading-smart-contracts
+- By using Gnosis, we can update Contract throug Gnosis contract

@@ -10,3 +10,8 @@ artifacts
 
 #remix
 .deps
+
+#openzeppelin
+# https://docs.openzeppelin.com/cli/2.8/configuration#configuration-files-in-version-control
+.openzeppelin/dev-*.json
+.openzeppelin/.session
